@@ -1,0 +1,96 @@
+Build a modern one-page website for Regal Star Gym – Wave & Vibe Pool Party with the following requirements:
+
+Design Style
+
+Black and gold premium theme.
+
+Use the Regal Star Gym logo (I will upload the logo file after generation).
+
+Layout should be clean, minimal, and mobile-responsive.
+
+Smooth section fading and subtle animations.
+
+Sections on the Page
+
+Hero Section:
+Large Regal Star Gym logo, event date, event theme, venue, and a “Purchase Ticket” button.
+
+Event Details Section:
+Show information:
+• Date: Saturday, 7th December 2025
+• Time: 12 PM
+• Venue: Gladman Hotel, No 2b Udouweme Street, off Abak Road, Uyo
+• Early Bird: Guys 5K, Ladies 3K
+• Gate: @Venue 8K
+• Fun games, music, community activities
+
+Payment Section:
+Integrate Flutterwave payment for ticket purchase.
+After successful payment, automatically:
+• Generate a PDF receipt
+• Include a unique Ticket ID Number (e.g., “RSG-PPOOL-XXXXXX”)
+• Email the receipt to the user
+The site should store:
+• Name
+• Email
+• Ticket ID
+• Payment status
+(Use a simple JSON or lightweight database, whichever is easier.)
+
+Sponsors Section:
+A blank placeholder grid titled “Our Sponsors” that I can manually update later (no logos for now).
+
+Footer:
+Regal Star Gym ownership footer + contact numbers for sponsorship:
+08145036786 | 09038114850
+
+Technical Requirements
+
+Use HTML, CSS, and JavaScript only.
+
+Use a simple backend using Node.js + Express for:
+• Handling payment callback
+• Generating unique ticket IDs
+• Generating PDF receipts
+• Sending confirmation email with PDF attached
+
+PDF can be generated using any lightweight library (jspdf, pdf-lib, or similar).
+
+Email should be sent using nodemailer.
+
+Payment success page should show: “Payment Successful. Your ticket has been emailed.”
+
+Project Structure
+Create the following files:
+
+index.html
+
+styles.css
+
+script.js
+
+server.js
+
+/public directory (for logo and assets)
+
+/tickets directory (store generated PDFs)
+
+package.json (include express, nodemailer, pdf library)
+
+Final Output
+
+A fully functioning one-page event ticket website
+
+Black-and-gold branding
+
+Flutterwave integration
+
+Auto PDF ticket generation
+
+Ticket ID system
+
+Email delivery
+
+Sponsor placeholder section
+
+Clean UI, simple animations
