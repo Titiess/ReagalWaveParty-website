@@ -8,6 +8,7 @@ export interface IStorage {
   getTicket(id: string): Promise<Ticket | undefined>;
   getTicketByTicketId(ticketId: string): Promise<Ticket | undefined>;
   getTicketByFlutterwaveRef(ref: string): Promise<Ticket | undefined>;
+  markTicketProcessing(id: string, flutterwaveRef?: string): Promise<boolean>;
   updateTicketPaymentStatus(id: string, status: string, flutterwaveRef?: string): Promise<Ticket | undefined>;
   getAllTickets(): Promise<Ticket[]>;
 }
@@ -42,7 +43,6 @@ function writeTicketsFile(tickets: Ticket[]) {
 export class FileStorage implements IStorage {
   constructor() {
     ensureTicketsDir();
-    // ensure file exists
     if (!fs.existsSync(TICKETS_FILE)) writeTicketsFile([]);
   }
 
@@ -77,6 +77,30 @@ export class FileStorage implements IStorage {
     return tickets.find(t => t.flutterwaveRef === ref);
   }
 
+  /**
+   * Atomically mark a ticket as "processing" only if current status === "pending".
+   * Returns true if mark succeeded, false if ticket not found or not pending.
+   */
+  async markTicketProcessing(id: string, flutterwaveRef?: string): Promise<boolean> {
+    const tickets = readTicketsFile();
+    const idx = tickets.findIndex(t => t.id === id);
+    if (idx === -1) return false;
+    const ticket = tickets[idx];
+    if (ticket.paymentStatus !== "pending") {
+      return false;
+    }
+
+    const updated: Ticket = {
+      ...ticket,
+      paymentStatus: "processing",
+      flutterwaveRef: flutterwaveRef ?? ticket.flutterwaveRef,
+    } as Ticket;
+
+    tickets[idx] = updated;
+    writeTicketsFile(tickets);
+    return true;
+  }
+
   async updateTicketPaymentStatus(id: string, status: string, flutterwaveRef?: string): Promise<Ticket | undefined> {
     const tickets = readTicketsFile();
     const idx = tickets.findIndex(t => t.id === id);
@@ -86,7 +110,7 @@ export class FileStorage implements IStorage {
       ...ticket,
       paymentStatus: status,
       flutterwaveRef: flutterwaveRef || ticket.flutterwaveRef,
-    };
+    } as Ticket;
     tickets[idx] = updated;
     writeTicketsFile(tickets);
     return updated;

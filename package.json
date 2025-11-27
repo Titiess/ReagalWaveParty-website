@@ -4,7 +4,7 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development PORT=5002 FLUTTERWAVE_PUBLIC_KEY=FLWPUBK_TEST-e17ef87d9084bd83940b34e59b3199bc-X FLUTTERWAVE_SECRET_KEY=FLWSECK_TEST-4d69fbaecf6325c73d88ed4af77a80d5-X FLUTTERWAVE_WEBHOOK_SECRET=FLWSECK_TEST-4d69fbaecf6325c73d88ed4af77a80d5-X tsx server/index-dev.ts",
+    "dev": "cross-env NODE_ENV=development PORT=5002 tsx server/index-dev.ts",
     "build": "vite build && esbuild server/index-prod.ts --platform=node --packages=external --bundle --format=esm --outfile=dist/index.js",
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "check": "tsc",

@@ -97,6 +97,36 @@ export default async function runApp(
     listenOptions.reusePort = true;
   }
 
+  // Print a masked environment summary for quick verification
+  function mask(val?: string) {
+    if (!val) return "(missing)";
+    if (val.length <= 4) return val;
+    return `${val.slice(0, 4)}…${val.slice(-3)}`;
+  }
+
+  const envSummary = {
+    SMTP_USER: mask(process.env.SMTP_USER || process.env.EMAIL_USER),
+    SMTP_PASS: process.env.SMTP_PASS || process.env.EMAIL_PASSWORD ? "***" : "(missing)",
+    SMTP_HOST: process.env.SMTP_HOST || "(missing)",
+    SMTP_PORT: process.env.SMTP_PORT || "(missing)",
+    SMTP_SERVICE: process.env.SMTP_SERVICE || "(none)",
+    ADMIN_EMAIL: mask(process.env.ADMIN_EMAIL || process.env.SMTP_USER),
+    FLUTTERWAVE_PUBLIC_KEY: process.env.FLUTTERWAVE_PUBLIC_KEY ? "OK" : "(missing)",
+    FLUTTERWAVE_SECRET_KEY: process.env.FLUTTERWAVE_SECRET_KEY ? "OK" : "(missing)",
+    FLUTTERWAVE_WEBHOOK_SECRET: process.env.FLUTTERWAVE_WEBHOOK_SECRET ? "OK" : "(missing)",
+  };
+
+  console.log("Loaded ENV:");
+  console.log(` - SMTP_USER: ${envSummary.SMTP_USER}`);
+  console.log(` - SMTP_PASS: ${envSummary.SMTP_PASS}`);
+  console.log(` - SMTP_HOST: ${envSummary.SMTP_HOST}`);
+  console.log(` - SMTP_PORT: ${envSummary.SMTP_PORT}`);
+  console.log(` - SMTP_SERVICE: ${envSummary.SMTP_SERVICE}`);
+  console.log(` - ADMIN_EMAIL: ${envSummary.ADMIN_EMAIL}`);
+  console.log(` - FLUTTERWAVE_PUBLIC_KEY: ${envSummary.FLUTTERWAVE_PUBLIC_KEY}`);
+  console.log(` - FLUTTERWAVE_SECRET_KEY: ${envSummary.FLUTTERWAVE_SECRET_KEY}`);
+  console.log(` - FLUTTERWAVE_WEBHOOK_SECRET: ${envSummary.FLUTTERWAVE_WEBHOOK_SECRET}`);
+
   server.listen(listenOptions, () => {
     log(`serving on port ${port}`);
   });

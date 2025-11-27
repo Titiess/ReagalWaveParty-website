@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <rect width="100%" height="100%" fill="#ffffff" />
+  <g transform="translate(300,300)">
+    <rect x="-220" y="-120" width="440" height="240" rx="24" fill="#fff" stroke="#5b21b6" stroke-width="8" />
+    <text x="0" y="-10" font-family="Arial, sans-serif" font-size="40" fill="#5b21b6" text-anchor="middle">NICE</text>
+    <text x="0" y="40" font-family="Arial, sans-serif" font-size="22" fill="#111827" text-anchor="middle">Beauty Spa</text>
+  </g>
+</svg>

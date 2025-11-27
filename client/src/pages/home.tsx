@@ -4,6 +4,8 @@ import { Calendar, Clock, MapPin, Users, Sparkles, Trophy, Music, Instagram, Fac
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import logoUrl from "@assets/ChatGPT Image Nov 20, 2025, 11_08_58 PM_1764070932389.png";
+import Sponsors from "@/components/sponsors";
+import { sponsors } from "@/data/sponsors";
 
 export default function Home() {
   const [, setLocation] = useLocation();
@@ -195,17 +197,9 @@ export default function Home() {
             Our <span className="text-primary">Sponsors</span>
           </h2>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="aspect-square border-2 border-dashed border-primary/30 rounded-lg flex items-center justify-center hover:border-primary/60 transition-colors duration-300"
-                data-testid={`sponsor-slot-${i}`}
-              >
-                <p className="text-muted-foreground text-sm">Sponsor Slot {i}</p>
-              </div>
-            ))}
-          </div>
+          {/* Sponsor cards component (data-driven). Place logos in client/public/sponsors/ */}
+          {/* Example: client/public/sponsors/dneros-bistro.png for D'Nero's Bistro */}
+          <Sponsors sponsors={sponsors} />
         </div>
       </section>
 
